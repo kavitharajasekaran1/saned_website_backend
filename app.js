@@ -11,10 +11,6 @@ const emailotp = require('./routes/emailotp')
 var swaggerJSDoc = require('swagger-jsdoc');
 var routes = require('./routes/index');
 
-
-
-
-
 //app.use(bodyParser());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -29,8 +25,6 @@ app.use('/api/sendemail',emailotp)
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
  
-
-
 // swagger definition
 var swaggerDefinition = {
   info: {
@@ -47,7 +41,7 @@ var options = {
   // import swaggerDefinitions
   swaggerDefinition: swaggerDefinition,
   // path to the API docs
-  apis: ['./routes/*.js'],
+  apis: ['./routes/swagger-docs.js'],
 };
 
 // initialize swagger-jsdoc
@@ -57,11 +51,6 @@ app.get('/swagger.json', function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
 });
-
-  
- 
-  
-
 
 const port = process.env.PORT || 8082;
 app.listen(port);
