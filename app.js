@@ -1,22 +1,15 @@
 const express = require('express');
 const app = express();
+var path = require('path');
 const mysql = require('mysql');
 const bodyParser = require("body-parser");
 const login = require('./routes/login')
 const forgetpassword = require('./routes/forgetpassword')
 const otp = require('./routes/sendotp')
 const register = require('./routes/register')
-
-const log4js = require('log4js');
-log4js.configure({
-    appenders: { sharjah_project: { type: 'file', filename: 'sharjah_project.log' } },
-    categories: { default: { appenders: ['sharjah_project'], level: 'error' } }
-  });
-
-const logger = log4js.getLogger('sharjah_project');
-
-
-  
+const emailotp = require('./routes/emailotp')
+var swaggerJSDoc = require('swagger-jsdoc');
+var routes = require('./routes/index');
 
 
 
@@ -32,27 +25,41 @@ app.use('/api/login', login);
 app.use('/api/forgetpassword',forgetpassword)
 app.use('/api/sendotp',otp)
 app.use('/api/register',register)
+app.use('/api/sendemail',emailotp)
 app.use(express.json());
- function connect(){
-   mysql.createConnection({
-    host: "127.0.0.1",
-    user: "Rapidqube",
-    password: "Rpqb$2018"
-  });
+app.use(express.static(path.join(__dirname, 'public')));
+ 
 
-}
 
-var con = mysql.createConnection({
-    host: "127.0.0.1",
-    user: "Rapidqube",
-    password: "Rpqb$2018"
-  });
+// swagger definition
+var swaggerDefinition = {
+  info: {
+    title: 'Node Swagger API',
+    version: '1.0.0',
+    description: 'Demonstrating how to describe a RESTful API with Swagger',
+  },
+  host: 'localhost:8082',
+  basePath: '/',
+};
+
+// options for the swagger docs
+var options = {
+  // import swaggerDefinitions
+  swaggerDefinition: swaggerDefinition,
+  // path to the API docs
+  apis: ['./routes/*.js'],
+};
+
+// initialize swagger-jsdoc
+var swaggerSpec = swaggerJSDoc(options);
+// serve swagger
+app.get('/swagger.json', function(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
 
   
-  con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-  });
+ 
   
 
 

@@ -1,23 +1,16 @@
-//  CREATE TABLE register (ID INT PRIMARY KEY AUTO_INCREMENT,Title VARCHAR(300) , Name VARCHAR(100) ,Company VARCHAR(300) ,Nationality VARCHAR(50) ,PhoneNumber VARCHAR(50) ,Address VARCHAR(300) ,PO_Box VARCHAR(15),Mobile VARCHAR(50) ,Email VARCHAR(100) NOT NULL,Password VARCHAR(100) NOT NULL);
+//  CREATE TABLE register (Title VARCHAR(300) NOT NULL, Name VARCHAR(100) NOT NULL,Company VARCHAR(300) NOT NULL,Nationality VARCHAR(50) NOT NULL,PhoneNumber VARCHAR(50) NOT NULL,Address VARCHAR(300) NOT NULL,PO_Box VARCHAR(15),Mobile VARCHAR(50) NOT NULL,Email VARCHAR(100) NOT NULL,Password VARCHAR(100) NOT NULL);
 
 
 const express = require('express');
 const mysql = require('mysql');
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('myTotalySecretKey');
-const log4js = require('log4js');
-log4js.configure({
-    appenders: { sharjah_project: { type: 'file', filename: 'sharjah_project.log' } },
-    categories: { default: { appenders: ['sharjah_project'], level: 'error' } }
-  });
-
-const logger = log4js.getLogger('sharjah_project');
 
 
 const router = express.Router();
 var con = mysql.createConnection({
     host: "127.0.0.1",
-    user: "Rapidqube",
+    user: "root",
     password: "Rpqb$2018",
     database:"SHARJAH"
   });
@@ -25,7 +18,7 @@ var con = mysql.createConnection({
 
 router.post('/register', (req, res) => {
    
-logger.fatal("Entering into Registration")
+
 
            let user_data = req.body;
            console.log(user_data,"request")
@@ -44,10 +37,9 @@ logger.fatal("Entering into Registration")
            
            
         console.log(mobile,"mobile");
-        var sql = "SELECT  * FROM register_test where Email ='" + email + "'";
+        var sql = "SELECT  * FROM register_test1 where Email ='" + email + "'";
     con.query(sql, function (err, result) {
       console.log("result",result);
-      logger.fatal(result)
       console.log(result.length != 0);
       if (err) throw err;
       if(result.length != 0){
@@ -59,10 +51,9 @@ logger.fatal("Entering into Registration")
 	
 
           else{    
-            var sql = "INSERT INTO register_test (Title, Name,Company,Nationality,PhoneNumber,Address,PO_BOX,Mobile,Email,Password) VALUES ('" + title + "','" + name + "','" + company + "','" + nationality + "','" +phonenumber + "','" + address + "','" + pobox + "','" + mobile + "','" + email + "','" + password + "')";
+            var sql = "INSERT INTO register_test1 (Title, Name,Company,Nationality,PhoneNumber,Address,PO_BOX,Mobile,Email,Password) VALUES ('" + title + "','" + name + "','" + company + "','" + nationality + "','" +phonenumber + "','" + address + "','" + pobox + "','" + mobile + "','" + email + "','" + password + "')";
            con.query(sql, function (err, result) {
          if (err) throw err;
-         logger.fatal(err)
          res.send({
             result:"You are successfully registered",
             النتيجة: "أنت مسجل بنجاح"
