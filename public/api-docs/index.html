@@ -1,3 +1,4 @@
+
 <!-- HTML for static distribution bundle build -->
 <!DOCTYPE html>
 <html lang="en">
@@ -14,14 +15,12 @@
         overflow: -moz-scrollbars-vertical;
         overflow-y: scroll;
       }
-
       *,
       *:before,
       *:after
       {
         box-sizing: inherit;
       }
-
       body
       {
         margin:0;
@@ -37,9 +36,10 @@
     <script src="./swagger-ui-standalone-preset.js"> </script>
     <script>
     window.onload = function() {
-      // Begin Swagger UI call region
+      // Build a system
       const ui = SwaggerUIBundle({
-        url = "http://localhost:8082/swagger.json",
+      //  url: "http://10.68.252.223:4000/swagger.json",
+      url: "http://localhost:8082/swagger.json",
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [
@@ -51,8 +51,6 @@
         ],
         layout: "StandaloneLayout"
       })
-      // End Swagger UI call region
-
       window.ui = ui
     }
   </script>

@@ -82,16 +82,6 @@ router.post('/otp', (req, res) => {
         // if(data.type == 'error') {
         //     console.log('OTP verification failed')
         //     res.send("OTP verification failed")}
-        
-        
-
-        
-                
-
-        
-
-                    
-        
     })
     });
     //==============================================otp resssend===============================//
