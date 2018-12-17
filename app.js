@@ -1,36 +1,62 @@
-const express = require('express');
-const app = express();
-var path = require('path');
-const mysql = require('mysql');
-const bodyParser = require("body-parser");
-const login = require('./routes/login')
-const forgetpassword = require('./routes/forgetpassword')
-const otp = require('./routes/sendotp')
-const register = require('./routes/register')
-const emailotp = require('./routes/emailotp')
-var swaggerJSDoc = require('swagger-jsdoc');
-var routes = require('./routes/index');
+/**
+@author: kavitha And Manoj
+@version: 1.0
+@date: 09/12/2018
+@Description: sanad project
+**/
+//this is the start of the application
+'use strict';
 
-//app.use(bodyParser());
+const express = require('express');
+const mysql = require('mysql');
+const app = express();
+const bodyParser = require('body-parser');
+const router = express.Router();
+var log4js = require('log4js');
+var con = require('./config/DBConfig.js');
+
+log4js.configure({
+ appenders: {
+   Aman_project: { type: 'dateFile', filename: 'Aman_project_log.log' }
+ },
+ categories: {
+   default: { appenders: [ 'Aman_project' ], level: 'debug' }
+ }
+});
+
+const logger = log4js.getLogger('sharjah_project');
+
+
+
+
+
 app.use(bodyParser.urlencoded({
-  extended: true
+   extended: true
 }));
 app.use(bodyParser.json());
 
-app.use('/api/login', login);
-app.use('/api/forgetpassword',forgetpassword)
-app.use('/api/sendotp',otp)
-app.use('/api/register',register)
-app.use('/api/sendemail',emailotp)
-app.use(express.json());
+require('./route')(router);
+app.use('/', router);
+
+
+ var path = require('path');
+
+var swaggerJSDoc = require('swagger-jsdoc');
+
+
+
+
+
 app.use(express.static(path.join(__dirname, 'public')));
+
+
  
 // swagger definition
 var swaggerDefinition = {
   info: {
-    title: 'Node Swagger API',
+    title: 'SENAD API',
     version: '1.0.0',
-    description: 'Demonstrating how to describe a RESTful API with Swagger',
+    description: 'Demonstrating RESTful API OF SANED',
   },
   host: 'localhost:8082',
   basePath: '/',
@@ -51,6 +77,7 @@ app.get('/swagger.json', function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
 });
+
 
 const port = process.env.PORT || 8082;
 app.listen(port);

@@ -13,12 +13,7 @@
  *       email:
  *         type: string
  *         example: "abc@xyz.com"
- *       subject:
- *         type: string
- *         example: "abc"
- *       text:
- *         type: string
- *         example: "xyz"
+
  *
  *   emailOTPResponse:
  *     properties:
@@ -29,7 +24,7 @@
 
  /**
  * @swagger
- * /api/sendemail/emailotp:
+ * /emailotp:
  *   post:
  *     tags:
  *       - Email OTP Services
@@ -70,7 +65,7 @@
 
  /**
  * @swagger
- * /api/login/login:
+ * /login:
  *   post:
  *     tags:
  *       - login Services
@@ -125,7 +120,7 @@
 
  /**
  * @swagger
- * /api/register/register:
+ * /register:
  *   post:
  *     tags:
  *       - Registration Services
@@ -169,7 +164,7 @@
 
  /**
  * @swagger
- * /api/forgetpassword/forgetpassword:
+ * /forgetpassword:
  *   post:
  *     tags:
  *       - forgetpassword Services
@@ -208,7 +203,7 @@
 
  /**
  * @swagger
- * /api/sendotp/sendotp:
+ * /sendotp:
  *   post:
  *     tags:
  *       - Mobile OTP Services
