@@ -30,7 +30,11 @@ const logger = log4js.getLogger('Aman_project');
 
 con.connectionCheck;
 
-
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+})
 
 
 app.use(bodyParser.urlencoded({
@@ -57,7 +61,7 @@ var swaggerDefinition = {
     version: '1.0.0',
     description: 'Demonstrating RESTful API OF SANED',
   },
-  host: 'localhost:8082',
+  host: 'localhost:8083',
   basePath: '/',
 };
 
@@ -76,7 +80,7 @@ app.get('/swagger.json', function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
 });
-const port = process.env.PORT || 8082;
+const port = process.env.PORT || 8083;
 app.listen(port);
 console.log(`App Runs on ${port}`);
 logger.fatal(`Server has started App is Running on Port ${port}`);
